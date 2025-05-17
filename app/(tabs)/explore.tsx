@@ -1,4 +1,34 @@
-import { Image } from 'expo-image';
+// app/(tabs)/explore.tsx
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { WebView } from 'react-native-webview';
+
+export default function ExploreScreen() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <WebView
+        source={{ uri: 'http://192.168.10.54:8080/swagger-ui/index.html' }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        startInLoadingState={true}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+
+
+
+
+
+/*import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
@@ -108,3 +138,4 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
+*/

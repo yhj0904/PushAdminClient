@@ -1,4 +1,23 @@
-import { Image } from 'expo-image';
+// Index.tsx
+// 앱의 시작 지점이며, NavigationContainer를 루트로 감싸 화면 이동을 가능하게 한다.
+
+import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AppNavigator from '../../navigations/AppNavigator'; // 화면 전환용 네비게이터
+export default function Index() {
+  
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <AppNavigator />
+    </SafeAreaView>
+  );
+}
+
+
+
+
+
+/*import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
@@ -73,3 +92,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+*/
+
