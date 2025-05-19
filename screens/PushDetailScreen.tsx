@@ -16,7 +16,7 @@ import {
 import axios from '../services/axiosInstance';
 import { PushDetail } from '../types/pushTypes';
 
-// 🔒 전달받는 route 파라미터 타입 정의
+// 전달받는 route 파라미터 타입 정의
 type RootStackParamList = {
   PushDetail: {
     appId: string;
@@ -33,12 +33,13 @@ export default function PushDetailScreen() {
   const [detail, setDetail] = useState<PushDetail | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 📡 컴포넌트 마운트 시 상세 정보 요청
+  // 컴포넌트 마운트 시 상세 정보 요청
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         const res = await axios.get(`/api/push/history/${appId}/${noticeNo}`);
         setDetail(res.data);
+        console.log(res.data);
       } catch (err) {
         Alert.alert('오류', '푸시 상세 정보를 불러오지 못했습니다.');
         console.error(err);
