@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import * as LocalAuthentication from 'expo-local-authentication';
 import React, { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 import axios from '../services/axiosInstance'; // JWT가 자동으로 붙는 axios 인스턴스
@@ -52,6 +53,33 @@ export default function LoginScreen() {
     }
   };
 
+  // 생체 인증 함수
+  const tryBiometricAuth = async () => {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    console.log('하드웨어 있음?', hasHardware);
+    console.log('등록됨?', isEnrolled);
+  
+    if (!hasHardware || !isEnrolled) {
+      Alert.alert('생체 인증 불가', '기기에서 생체 인증을 지원하지 않거나 등록되어 있지 않습니다.');
+      return;
+    }
+  
+    const biometricResult = await LocalAuthentication.authenticateAsync({
+      promptMessage: '생체 인증으로 로그인',
+      disableDeviceFallback: true,
+    });
+  
+    console.log('biometricResult:', biometricResult);
+  
+    if (biometricResult.success) {
+      Alert.alert('✅ 인증 성공');
+      handleLogin();
+    } else {
+      Alert.alert('❌ 인증 실패');
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <TextInput
@@ -70,6 +98,7 @@ export default function LoginScreen() {
       />
       <Button title="로그인" onPress={handleLogin} />
       <Button title="회원가입" onPress={() => navigation.navigate('Register')} />
+      <Button title="생체 인증 로그인" onPress={tryBiometricAuth} />
     </View>
   );
 }
