@@ -7,12 +7,12 @@ import { deleteAccessToken, getAccessToken, saveAccessToken } from '../utils/tok
 
 // axios 인스턴스 생성
 const instance = axios.create({
-  baseURL: 'http://192.168.10.54:8080', // Spring Boot API 주소로 수정
+  baseURL: 'http://192.168.10.205:8086', // Spring Boot API 주소로 수정
   withCredentials: false,  // 쿠키도 같이 보내도록 설정
 });
 
 const reissueApi = axios.create({
-    baseURL: 'http://192.168.10.54:8080',
+    baseURL: 'http://192.168.10.205:8086',
     withCredentials: true, // refreshToken 포함됨
   });
 
